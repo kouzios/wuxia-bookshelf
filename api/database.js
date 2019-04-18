@@ -20,6 +20,14 @@ router.route('/remove').post(function(req, res) {
     });
 });
 
+router.route('/updateNovel').post(function(req, res) {
+    Book.findOneAndUpdate({title: req.body.title}, req.body).then(() => {
+        res.status(200).send(req.body.title + ' updated successfully');
+    }).catch(() => {
+        res.status(400).send("Unable to update book in database");
+    });
+});
+
 router.route('/getAll').get(function(req, res) {
     Book.init().then(()=> {
         Book.find(function(err, books) {

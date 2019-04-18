@@ -16,6 +16,7 @@
 
 <script>
 import axios from 'axios'
+import parser from '@/scripts/websiteParser'
 
 export default {
     data() {
@@ -29,17 +30,13 @@ export default {
          * Parses through page information, and sends the information to the parent
          */
         parseInformation(page) {
-            var parser = new DOMParser();
-            var el = parser.parseFromString(page,"text/html");
-            var title = el.getElementsByClassName('entry-title')[0].innerText;
-            var chapter = el.getElementsByClassName('chapter-list')[0].children[0].innerText;
-            var chapter_num = chapter.match("^(?:\\s*)Chapter (\\d+)");
+            var page_data = parser.parse(page);
 
             this.$emit('add-book', {
-                title: title.replace("\'", ""),
+                title: page_data.title,
                 uri: this.uri,
                 current_position: 0,
-                total_chapters: chapter_num[1]
+                total_chapters: page_data.chapters
             });
         },
         /**
