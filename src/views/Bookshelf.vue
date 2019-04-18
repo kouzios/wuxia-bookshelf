@@ -7,7 +7,7 @@
             <b-button id='add' variant='primary' v-b-modal.add_book>Add Book</b-button>
         </div>
         <messages ref='messages'/>
-        <books ref='books'/>
+        <books ref='books' v-on:add-message="addMessage" v-on:refresh="refresh"/>
         <add-book v-on:add-message="addMessage" v-on:add-book="addBook"/>
     </div>
 </template>

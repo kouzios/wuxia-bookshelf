@@ -16,5 +16,7 @@ export default {
 </script>
 
 <style>
-
+.selectable {
+  cursor: pointer;
+}
 </style>
