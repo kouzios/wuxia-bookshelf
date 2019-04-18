@@ -8,6 +8,11 @@ let Books = new Schema({
     unique: true,
     required: true
   },
+  uri: {
+    type: String,
+    unique: true,
+    required: true
+  },
   current_position: {
       type: Number,
       required: true

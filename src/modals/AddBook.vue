@@ -1,7 +1,7 @@
 <template>
     <div>
     <b-modal ref='add_book' id="add_book" title="Add Novel" ok-only ok-variant="secondary" ok-title="Cancel">
-        <b-form  @submit.prevent="retrieveInfo">
+        <b-form  @submit.prevent="requestBook">
             <label for="text-uri">Novel URI</label>
             <div class='error'>{{message}}</div>
             <b-input type="text" id="text-uri" aria-describedby="uri-help-block" v-model='uri' autocomplete='off'/>
@@ -25,23 +25,35 @@ export default {
         }
     },
     methods: {
-        submit() {
-            /*
+        /**
+         * Parses through page information, and sends the information to the parent
+         */
+        parseInformation(page) {
+            var parser = new DOMParser();
+            var el = parser.parseFromString(page,"text/html");
+            var title = el.getElementsByClassName('entry-title')[0].innerText;
+            var chapter = el.getElementsByClassName('chapter-list')[0].children[0].innerText;
+            var chapter_num = chapter.match("^(?:\\s*)Chapter (\\d+)");
+
             this.$emit('add-book', {
-                title: this.title,
+                title: title.replace("\'", ""),
+                uri: this.uri,
                 current_position: 0,
-                total_chapters: this
+                total_chapters: chapter_num[1]
             });
-            */
         },
-        retrieveInfo() {
+        /**
+         * Requests book information from wuxiaworld.online, 
+         * then calls a method to parse through the information
+         */
+        requestBook() {
             var self = this;
             if(this.validURI()) {
                 self.message = '';
                 axios.get(this.uri).then(response => {
-                    self.$refs['add_book'].hide()
+                    self.$refs['add_book'].hide();
                     self.$emit('add-message', 'Novel successfully retrieved');
-                    self.submit();
+                    self.parseInformation(response.data);
                 }).catch(error => {
                     self.message = 'Error: Novel could not be retrieved';
                 });
@@ -49,6 +61,12 @@ export default {
                 self.message = 'Error: Not a valid wuxiaworld.online URI';
             }
         },
+        /**
+         * Checks if the currently stored URI is from https://wuxiaworld.online/
+         * 
+         * Note: Doesn't guarantee the request will go through, 
+         *       just that it's from the right website.
+         */
         validURI() {
             return /^https:\/\/wuxiaworld\.online\/.*/.test(this.uri);
         }
