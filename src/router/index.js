@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Homepage from '@/views/Homepage'
+import Bookshelf from '@/views/Bookshelf'
 import Login from '@/views/Login'
 import NotFound from '@/views/NotFound'
 
@@ -11,8 +11,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Homepage',
-      component: Homepage
+      name: 'Bookshelf',
+      component: Bookshelf
     },
     {
       path: '/login',
