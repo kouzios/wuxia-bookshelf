@@ -28,6 +28,9 @@ export default {
         this.refresh();
     },
     methods: {
+        /**
+         * Adds the passed book data into the database via a post request to the server
+         */
         addBook(data) {
             var self = this;
             let uri = process.env.VUE_APP_SERVER + '/bookshelf/add';
@@ -38,6 +41,9 @@ export default {
                 self.addMessage("Error: A novel by that name already exists");
             });
         },
+        /**
+         * Refreshes the bookshelf, pulling from the database
+         */
         refresh() {
             var self = this;
             let uri = process.env.VUE_APP_SERVER + '/bookshelf/getAll';
@@ -45,6 +51,9 @@ export default {
                 self.$refs.books.setBooks(response);
             });
         },
+        /**
+         * Adds a message to the child message element
+         */
         addMessage(message) {
             this.$refs.messages.addMessage(message);
         }

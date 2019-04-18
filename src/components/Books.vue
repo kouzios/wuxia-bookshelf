@@ -1,7 +1,7 @@
 <template>
     <div class='container'>
         <div v-for='(book, index) in books' :key='"book"+index'>
-            <span class='title'>{{book.title}}</span>
+            <a class='title' :href='book.uri' target="_blank">{{book.title}}</a>
             <span class='chapters'>{{book.current_position}} / {{book.total_chapters}}</span>
         </div>
     </div>
