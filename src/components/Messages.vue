@@ -15,6 +15,7 @@ export default {
     },
     methods: {
         addMessage(message) {
+            this.messages = []; //Remove this for more than one message at a time
             this.messages.push(message);
         }
     }

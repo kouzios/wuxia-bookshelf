@@ -6,7 +6,7 @@ let Book = require('./schemas/books.model');
 router.route('/add').post(function(req, res){
     let book = new Book(req.body);
     book.save().then(() => {
-        res.status(200).send('Book ' + req.body.title +' added successfully');
+        res.status(200).send(req.body.title +' added successfully');
     }).catch(()=>{
         res.status(400).send("Unable to add book to database");
     });
