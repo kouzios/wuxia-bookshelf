@@ -1,6 +1,6 @@
 <template>
     <div>
-    <b-modal ref='add_book' id="add_book" title="Add Novel" ok-only ok-variant="secondary" ok-title="Cancel">
+    <b-modal ref='add_book' id="add_book" title="Add Novel" ok-only ok-variant="secondary" ok-title="Cancel" @hidden='reset'>
         <b-form  @submit.prevent="requestBook">
             <label for="text-uri">Novel URI</label>
             <div class='error'>{{message}}</div>
@@ -69,6 +69,13 @@ export default {
          */
         validURI() {
             return /^https:\/\/wuxiaworld\.online\/.*/.test(this.uri);
+        },
+        /**
+         * Clears the displayed content, this action occurs on modal close
+         */
+        reset() {
+            this.message = '';
+            this.uri = '';
         }
     }
 }
