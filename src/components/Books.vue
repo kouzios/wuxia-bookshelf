@@ -1,10 +1,13 @@
 <template>
     <div class='container'>
-        <div v-for='(book, index) in books' :key='"book"+index'>
+        <div v-for='(book, index) in books' :key='"book"+index' class='row'>
             <a class='title' :href='book.uri' target="_blank">{{book.title}}</a>
-            <span class='chapters'>{{book.current_position}} / {{book.total_chapters}}</span>
+            <form @submit.prevent='retrieveUpdate(index)'>
+                <b-form-input class='position' type='text' v-model="book.current_position"/>
+            </form>
+            <span> / {{book.total_chapters}}</span>
             <font-awesome-icon icon="trash-alt" class='selectable icon' @click='removeNovel(index)'/>
-            <font-awesome-icon icon="sync-alt" class='selectable icon' @click='updateNovel(index)'/>
+            <font-awesome-icon icon="sync-alt" class='selectable icon' @click='retrieveUpdate(index)'/>
         </div>
     </div>
 </template>
@@ -34,22 +37,15 @@ export default {
                 self.$emit("add-message", error.data);
             });
         },
-        updateNovel(index) {
+        updateNovel(book) {
             var self = this;
-            this.retrieveNovel(index, function(page) {
-                if(page) {
-                    var uri = process.env.VUE_APP_SERVER + '/bookshelf/updateNovel';
-                    var book = self.books[index];
+            var uri = process.env.VUE_APP_SERVER + '/bookshelf/updateNovel';
 
-                    //Sets total chapters to new chapter number retrieved from website
-                    book.total_chapters = parser.parse(page).chapters;
-                    axios.post(uri, book).then(response => {
-                        self.$emit('add-message', response.data);
-                    }).catch(error => {
-                        self.$emit('add-message', error.data);
-                    });
-                } 
-            })
+            axios.post(uri, book).then(response => {
+                self.$emit('add-message', response.data);
+            }).catch(error => {
+                self.$emit('add-message', error.data);
+            });
         },
         /**
          * Retrieves novel from wuxiaworld.online
@@ -62,11 +58,27 @@ export default {
                 self.$emit('add-message', 'Error: Novel could not be retrieved for update');
                 callback(null);
             });
+        },
+        /**
+         * Calls for wuxiaworld chapter update, then calls for database update
+         * 
+         * This is used for 
+         */
+        retrieveUpdate(index) {
+            var self = this;
+            this.retrieveNovel(index, function(page) {
+                var book = self.books[index];
+
+                book.total_chapters = parser.parse(page).chapters;
+                self.updateNovel(book);
+            });
         }
     }
 }
 </script>
 
 <style scoped>
-
+.position {
+    width: 50px;
+}
 </style>
