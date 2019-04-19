@@ -1,3 +1,3 @@
 module.exports = {
-    DB: 'mongodb://localhost:27017/bookshelf'
+    DB: 'mongodb+srv://admin:<password>@bookshelf-bagl5.mongodb.net/test?retryWrites=true'
 }
