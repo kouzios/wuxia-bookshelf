@@ -51,6 +51,13 @@ export default {
 
 <style scoped>
 .position {
-    width: 50px;
+    width: auto;
+}
+
+.title {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    color: #0080FF;
 }
 </style>

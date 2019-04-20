@@ -19,4 +19,8 @@ export default {
 .selectable {
   cursor: pointer;
 }
+
+body, html {
+  font-family: 'Verdana, Arial'
+}
 </style>
