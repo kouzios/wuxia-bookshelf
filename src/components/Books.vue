@@ -1,5 +1,5 @@
 <template>
-    <div class='container'>
+    <div id='books-container' class='container'>
         <div v-for='(book, index) in books' :key='"book"+index' class='row'>
             <span class='title'>{{book.title}}</span>
             <form @submit.prevent='updateNovel(index)'>

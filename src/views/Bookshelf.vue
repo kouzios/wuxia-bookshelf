@@ -1,6 +1,6 @@
 <template>
     <b-container id='shelf'>
-        <div class='row' id='title-container'>
+        <div class='d-flex justify-content-between' id='title-container'>
             <h3 id='title'>Bookshelf</h3>
             <b-button id='add' variant='secondary' v-b-modal.add-book>Add Book</b-button>
         </div>
@@ -52,7 +52,7 @@ export default {
 }
 
 #shelf {
-    background-color: #222222;
+    background-color: rgba(0, 0, 0, 0.8);
     border-bottom: #444444 1px solid;
     box-shadow: 1px inset;
 }
