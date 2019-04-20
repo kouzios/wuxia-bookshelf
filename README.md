@@ -1,6 +1,7 @@
-# wuxia-bookshelf
+# Wuxia Bookshelf
 
-> A Vue.js project
+> Originally I intended to have these update automatically; however, I couldn't find any open APIs to get the information from
+> and Cross-Origin requests to sites like wuxiaworld isn't checking out. So It's just a glorified notepad.
 
 ## Build Setup
 

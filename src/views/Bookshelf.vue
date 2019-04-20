@@ -4,11 +4,11 @@
             <h1>Bookshelf</h1>
         </div>
         <div class='row'>
-            <b-button id='add' variant='primary' v-b-modal.add_book>Add Book</b-button>
+            <b-button id='add' variant='primary' v-b-modal.add-book>Add Book</b-button>
         </div>
         <messages ref='messages'/>
         <books ref='books' v-on:add-message="addMessage" v-on:refresh="refresh"/>
-        <add-book v-on:add-message="addMessage" v-on:add-book="addBook"/>
+        <add-book v-on:add-message="addMessage" v-on:refresh="refresh"/>
     </div>
 </template>
 
@@ -28,19 +28,6 @@ export default {
         this.refresh();
     },
     methods: {
-        /**
-         * Adds the passed book data into the database via a post request to the server
-         */
-        addBook(data) {
-            var self = this;
-            let uri = process.env.VUE_APP_SERVER + '/bookshelf/add';
-            axios.post(uri, data).then(response => {
-                self.addMessage(response.data);
-                self.refresh();
-            }).catch(error => {
-                self.addMessage("Error: A novel by that name already exists");
-            });
-        },
         /**
          * Refreshes the bookshelf, pulling from the database
          */
