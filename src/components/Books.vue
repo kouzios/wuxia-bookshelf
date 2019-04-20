@@ -1,13 +1,28 @@
 <template>
-    <div id='books-container' class='container'>
-        <div v-for='(book, index) in books' :key='"book"+index' class='row'>
-            <span class='title'>{{book.title}}</span>
-            <form @submit.prevent='updateNovel(index)'>
-                <b-form-input class='position' type='text' v-model="book.current_position"/>
-            </form>
-            <font-awesome-icon icon="trash-alt" class='selectable icon' @click='removeNovel(index)'/>
-        </div>
-    </div>
+    <table id='books-container' class='table'>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Actions</th>
+                <th>Chapters</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for='(book, index) in books' :key='"book"+index' class='row'>
+                <td class='title'>
+                    {{book.title}}
+                </td>
+                <td>
+                    <font-awesome-icon icon="trash-alt" class='selectable icon' @click='removeNovel(index)'/>
+                </td>
+                <td>
+                    <form @submit.prevent='updateNovel(index)'>
+                        <b-form-input class='position' type='text' v-model="book.current_position"/>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </template>
 
 <script>
@@ -58,6 +73,10 @@ export default {
     font-size: 12px;
     font-weight: bold;
     text-align: center;
+    color: #0080FF;
+}
+
+#books-headers {
     color: #0080FF;
 }
 </style>
