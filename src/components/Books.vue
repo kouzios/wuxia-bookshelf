@@ -2,23 +2,19 @@
     <table id='books-container' class='table'>
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Actions</th>
-                <th>Chapters</th>
+                <th scope="col">Title</th>
+                <th scope="col">Actions</th>
+                <th scope="col">Chapters</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for='(book, index) in books' :key='"book"+index' class='row'>
-                <td class='title'>
-                    {{book.title}}
-                </td>
+            <tr v-for='(book, index) in books' :key='"book"+index' class='row title'>
+                <th scope="row">{{book.title}}</th>
                 <td>
                     <font-awesome-icon icon="trash-alt" class='selectable icon' @click='removeNovel(index)'/>
                 </td>
                 <td>
-                    <form @submit.prevent='updateNovel(index)'>
-                        <b-form-input class='position' type='text' v-model="book.current_position"/>
-                    </form>
+                    {{book.current_position}}
                 </td>
             </tr>
         </tbody>
@@ -72,8 +68,19 @@ export default {
 .title {
     font-size: 12px;
     font-weight: bold;
-    text-align: center;
     color: #0080FF;
+}
+
+#books {
+    display: block;
+}
+
+#books-container th {
+    color: #0080FF;
+}
+
+#books-container .row {
+    width: 100%;
 }
 
 #books-headers {
