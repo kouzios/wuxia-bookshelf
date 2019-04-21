@@ -8,19 +8,28 @@
             :sort-by.sync="sort.by"
             :sort-desc.sync="sort.descending"
         >
-        <template slot='actions' slot-scope='row'>
-            <font-awesome-icon icon='trash-alt' class='selectable' @click='removeNovel(row.item.title)'/>
-        </template>
+            <template slot='actions' slot-scope='row'>
+                <font-awesome-icon icon='trash-alt' class='selectable' @click='setConfirmationValues(row.item.title)' v-b-modal.confirmation/>
+            </template>
         </b-table>
+        <confirmation :message='confirmation.message' v-on:confirm="removeNovel(confirmation.title)"/>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import confirmation from '@/modals/Confirmation';
 
 export default {
+    components: {
+        confirmation
+    },
     data: function() {
         return {
+            confirmation : {
+                message: '',
+                title: ''
+            },
             sort: {
                 by: 'title',
                 descending: false
@@ -42,6 +51,13 @@ export default {
         }
     },
     methods: {
+        setConfirmationValues(title) {
+            this.confirmation.title = title;
+            this.confirmation.message = 'Are you sure you want to remove ' + title + '?';
+        },
+        /**
+         * Sets the books in the bookcase via the passed object
+         */
         setBooks(passed_books) {
             var self = this;
             self.books = [];
@@ -53,6 +69,9 @@ export default {
                 });
             });
         },
+        /**
+         * Removes the specified novel based on the title
+         */
         removeNovel(title) {
             var self = this;
             var uri = process.env.VUE_APP_SERVER + '/bookshelf/remove';
@@ -63,6 +82,10 @@ export default {
                 self.$emit('add-message', error.data);
             });
         },
+        /**
+         * Updates the novel based on the index
+         * [depricated]
+         */
         updateNovel(index) {
             var self = this;
             var book = this.books[index];

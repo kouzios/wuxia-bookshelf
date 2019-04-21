@@ -1,5 +1,4 @@
 <template>
-    <div>
     <b-modal ref='add-book' id="add-book" title="Add Novel" ok-only ok-variant="secondary" ok-title="Cancel" @hidden='reset'>
         <b-form  @submit.prevent="addBook">
             <div class='error'>{{message}}</div>
@@ -10,7 +9,6 @@
             <b-button id="book_submission" type="submit" variant="primary">Submit</b-button>
         </b-form>
     </b-modal>
-    </div>
 </template>
 
 <script>
