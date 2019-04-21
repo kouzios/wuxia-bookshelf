@@ -22,11 +22,11 @@ export default {
 
 body, html {
   font-family: 'Verdana, Arial';
-  height: 100%;
 }
 
 #app {
   background-image: url('/static/background.jpg');
+  background-attachment: fixed;
   height: 100%;
 }
 
