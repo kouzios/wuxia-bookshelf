@@ -68,7 +68,6 @@ export default {
 .title {
     font-size: 12px;
     font-weight: bold;
-    color: #0080FF;
 }
 
 #books {

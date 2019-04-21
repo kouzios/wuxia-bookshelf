@@ -1,6 +1,6 @@
 <template>
     <div class='d-flex justify-content-center container'>
-        <h1>
+        <h1 class='title'>
             Login
         </h1>
     </div>
