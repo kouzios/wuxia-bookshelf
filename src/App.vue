@@ -21,6 +21,10 @@ export default {
 }
 
 body, html {
-  font-family: 'Verdana, Arial'
+  font-family: 'Verdana, Arial';
+}
+
+#app {
+  background-image: url('/static/background.jpg');
 }
 </style>
