@@ -75,15 +75,19 @@ export default {
     display: block;
 }
 
+#books-headers {
+    color: #0080FF;
+}
+
+#books-container thead th{
+    border: 0px !important;
+}
+
 #books-container th {
     color: #0080FF;
 }
 
 #books-container .row {
     width: 100%;
-}
-
-#books-headers {
-    color: #0080FF;
 }
 </style>

@@ -33,8 +33,8 @@ export default {
 </script>
 
 <style scoped>
-    .navigation_container {
-        background-color: lightsteelblue;
-        margin-bottom: 10px;
-    }
+.navigation_container {
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 25px;
+}
 </style>
