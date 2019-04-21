@@ -1,7 +1,7 @@
 <template>
     <div class='container'>
         <div v-for='(message, index) in messages' :key='"message"+index'>
-            <span>{{ message }}</span>
+            <span class='title'>{{ message }}</span>
         </div>
     </div>
 </template>

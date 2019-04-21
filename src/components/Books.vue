@@ -1,24 +1,18 @@
 <template>
-    <table id='books-container' class='table'>
-        <thead>
-            <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Actions</th>
-                <th scope="col">Chapters</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for='(book, index) in books' :key='"book"+index' class='row title'>
-                <th scope="row">{{book.title}}</th>
-                <td>
-                    <font-awesome-icon icon="trash-alt" class='selectable icon' @click='removeNovel(index)'/>
-                </td>
-                <td>
-                    {{book.current_position}}
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div>
+        <b-table
+            id='books-container' 
+            class='title'
+            :items="books" 
+            :fields="fields"
+            :sort-by.sync="sort.by"
+            :sort-desc.sync="sort.descending"
+        >
+        <template slot='actions' slot-scope='row'>
+            <font-awesome-icon icon='trash-alt' class='selectable' @click='removeNovel(row.item.title)'/>
+        </template>
+        </b-table>
+    </div>
 </template>
 
 <script>
@@ -27,18 +21,42 @@ import axios from 'axios'
 export default {
     data: function() {
         return {
-            books: []
+            sort: {
+                by: 'title',
+                descending: false
+            },
+            books: [],
+            fields: {
+                title: {
+                    label: "Title",
+                    sortable: true
+                },
+                actions: {
+                    label: "Actions"
+                },
+                chapters: {
+                    label: "Chapters",
+                    sortable: true
+                }
+            }
         }
     },
     methods: {
         setBooks(passed_books) {
-            this.books = passed_books.data;
-        },
-        removeNovel(index) {
-            var book = this.books[index];
-            var uri = process.env.VUE_APP_SERVER + '/bookshelf/remove';
             var self = this;
-            axios.post(uri, book).then(response => {
+            self.books = [];
+            passed_books.data.forEach(function(book) {
+                self.books.push({
+                    title: book.title,
+                    actions: 'something',
+                    chapters: book.current_position
+                });
+            });
+        },
+        removeNovel(title) {
+            var self = this;
+            var uri = process.env.VUE_APP_SERVER + '/bookshelf/remove';
+            axios.post(uri, {title: title}).then(response => {
                 self.$emit('add-message', response.data);
                 self.$emit('refresh');
             }).catch(error => {
@@ -68,25 +86,5 @@ export default {
 .title {
     font-size: 12px;
     font-weight: bold;
-}
-
-#books {
-    display: block;
-}
-
-#books-headers {
-    color: #0080FF;
-}
-
-#books-container thead th{
-    border: 0px !important;
-}
-
-#books-container th {
-    color: #0080FF;
-}
-
-#books-container .row {
-    width: 100%;
 }
 </style>
