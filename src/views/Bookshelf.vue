@@ -1,7 +1,13 @@
 <template>
     <b-container id='shelf'>
-        <div class='d-flex justify-content-between' id='title-container'>
-            <h3 id='title'>Bookshelf</h3>
+        <div class='d-flex flex-row justify-content-between' id='title-container'>
+            <div class='d-flex flex-row'>
+                <h3 class='header'>Bookshelf</h3>
+                <div class='d-flex flex-row header'>
+                    <font-awesome-icon id='toggle' icon='search' class='selectable header' @click='toggle'/>
+                    <b-form-input v-if="show" size="sm h-100" placeholder="Search"/>
+                </div>
+            </div>
             <b-button id='add' variant='secondary' v-b-modal.add-book>Add Book</b-button>
         </div>
         <messages class='title' ref='messages'/>
@@ -22,6 +28,11 @@ export default {
         books,
         AddBook
     },
+    data() {
+        return {
+            show: false
+        }
+    },
     mounted() {
         this.refresh();
     },
@@ -35,6 +46,12 @@ export default {
             axios.get(uri).then((response) => {
                 self.$refs.books.setBooks(response);
             });
+        },
+        /**
+         * Toggles the search option for the search bar
+         */
+        toggle() {
+            this.show = !this.show;
         },
         /**
          * Adds a message to the child message element
@@ -57,7 +74,7 @@ export default {
     box-shadow: 1px inset;
 }
 
-#title {
+.header {
     color: #444;
     font-weight: bold;
     text-align: center;
@@ -66,5 +83,9 @@ export default {
 #title-container  {
     background-color: #0080FF;
     padding: 5px;
+}
+
+#toggle {
+    margin: 10px 10px 0px 10px;
 }
 </style>
