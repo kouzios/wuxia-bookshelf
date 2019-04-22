@@ -5,7 +5,7 @@
                 <h3 class='header'>Bookshelf</h3>
                 <div class='d-flex flex-row header'>
                     <font-awesome-icon id='toggle' icon='search' class='selectable header' @click='toggle'/>
-                    <b-form-input v-if="show" size="sm h-100" placeholder="Search"/>
+                    <b-form-input v-if="show" size="sm h-100" v-model='search' placeholder="Search" autocomplete="off"/>
                 </div>
             </div>
             <b-button id='add' variant='secondary' v-b-modal.add-book>Add Book</b-button>
@@ -30,11 +30,20 @@ export default {
     },
     data() {
         return {
-            show: false
+            show: false,
+            search: ''
         }
     },
     mounted() {
         this.refresh();
+    },
+    watch: {
+        /**
+         * When trying to search, sort
+         */
+        search(val) {
+            this.$refs.books.filter(val);
+        }
     },
     methods: {
         /**

@@ -3,7 +3,7 @@
         <b-table
             id='books-container' 
             class='title'
-            :items="books" 
+            :items="displayed_books" 
             :fields="fields"
             :sort-by.sync="sort.by"
             :sort-desc.sync="sort.descending"
@@ -32,6 +32,7 @@ export default {
     data: function() {
         return {
             books: [],
+            displayed_books: [],
             edit: {},
             confirmation: {
                 message: '',
@@ -57,9 +58,23 @@ export default {
         }
     },
     methods: {
+        /**
+         * Filters out books based on the search
+         */
+        filter(val) {
+           this.displayed_books = this.books.filter(book => {
+                return book.title.toLowerCase().indexOf(val.toLowerCase()) > -1
+            });
+        },
+        /**
+         * Fills the edit modal with the desired novel values
+         */
         setEditValues(novel) {
             this.edit = novel;
         },
+        /**
+         * Fills the confirmation modal with the desired title
+         */
         setConfirmationValues(title) {
             this.confirmation.title = title;
             this.confirmation.message = 'Are you sure you want to remove ' + title + '?';
@@ -69,7 +84,7 @@ export default {
          */
         setBooks(passed_books) {
             var self = this;
-            self.books = [];
+            this.books = [];
             passed_books.data.forEach(function(book) {
                 self.books.push({
                     title: book.title,
@@ -77,6 +92,7 @@ export default {
                     chapters: book.current_position
                 });
             });
+            this.displayed_books = this.books;
         },
         /**
          * Removes the specified novel based on the title
