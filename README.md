@@ -8,13 +8,16 @@
 ``` bash
 # install dependencies
 npm install
+cd ./api
+npm install
+cd ..
 
 # Update database credentials
 # Go to api/sample_database_config.js, copy the file, 
 # rename it to database_config.js, and fill out the necessary data.
 
-# serve with hot reload at localhost:8080
-npm run dev
+# Serves client and server
+npm run start
 
 # build for production with minification
 npm run build
