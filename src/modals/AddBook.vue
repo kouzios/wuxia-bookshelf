@@ -1,12 +1,15 @@
 <template>
-    <b-modal ref='add-book' id="add-book" title="Add Novel" ok-only ok-variant="secondary" ok-title="Cancel" @hidden='reset'>
+    <b-modal ref='add-book' id="add-book" title="Add Novel" hide-footer @hidden='reset'>
         <b-form  @submit.prevent="addBook">
             <messages class='error' ref='messages'/>
             <label for="text-title">Title</label>
             <b-input type="text" id="text-title" v-model='title' autocomplete='off'/>
             <label for="text-chapters">Chapters</label>
             <b-input type="text" id="text-chapters" v-model='current_position' autocomplete='off'/>
-            <b-button id="book_submission" type="submit" variant="primary">Submit</b-button>
+            <div id='footer' class='d-flex flex-row justify-content-between'>
+                <b-button type="submit" variant="primary">Submit</b-button>
+                <b-button variant="secondary" @click='hide'>Cancel</b-button>
+            </div>
         </b-form>
     </b-modal>
 </template>
@@ -35,7 +38,7 @@ export default {
             let uri = process.env.VUE_APP_SERVER + '/bookshelf/add';
 
             axios.post(uri, {title: this.title, current_position: this.current_position}).then(response => {
-                self.$refs['add-book'].hide();
+                self.hide();
                 self.reset();
                 self.$emit("add-message", response.data);
                 self.$emit("refresh");
@@ -56,6 +59,12 @@ export default {
          */
         addMessage(message) {
             this.$refs.messages.addMessage(message);
+        },
+        /**
+         * Hides this modal
+         */
+        hide() {
+            this.$refs['add-book'].hide();
         }
     }
 }
@@ -66,7 +75,7 @@ export default {
     color: red;
 }
 
-#book_submission {
+#footer {
     margin-top: 10px;
 }
 </style>

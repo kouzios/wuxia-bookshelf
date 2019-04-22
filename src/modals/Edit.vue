@@ -1,12 +1,15 @@
 <template>
-    <b-modal ref='edit' id="edit" title="Edit Novel" @show="assignBook" @hidden='resetValues' ok-only ok-variant='secondary' ok-title='Cancel'>
+    <b-modal ref='edit' id="edit" title="Edit Novel" @show="assignBook" @hidden='resetValues' hide-footer>
         <b-form  @submit.prevent="updateNovel">
             <messages ref='messages'/>
             <span>Title</span>
             <b-input v-model='book.title' autocomplete="off"/>
             <span>Chapters</span>
             <b-input v-model='book.current_position' autocomplete="off"/>
-            <b-button id="book_update" type="submit" variant="primary">Submit</b-button>
+            <div id='footer' class='d-flex flex-row justify-content-between'>
+                <b-button type="submit" variant="primary">Submit</b-button>
+                <b-button variant="secondary" @click='hide'>Cancel</b-button>
+            </div>
         </b-form>
     </b-modal>
 </template>
@@ -39,7 +42,7 @@ export default {
             var uri = process.env.VUE_APP_SERVER + '/bookshelf/updateNovel';
 
             axios.post(uri, this.book).then(response => {
-                self.$refs['edit'].hide();
+                self.hide();
                 self.$emit('add-message', response.data);
                 self.$emit("refresh");
             }).catch(error => {
@@ -53,7 +56,6 @@ export default {
         assignBook() {
             this.book.title = this.novel.title;
             this.book.current_position = this.novel.chapters;
-            console.log(this.book);
         },
         /**
          * Resets values from novel to empty
@@ -69,6 +71,12 @@ export default {
          */
         addMessage(message) {
             this.$refs.messages.addMessage(message);
+        },
+        /**
+         * Hides this modal
+         */
+        hide() {
+            this.$refs['edit'].hide();
         }
     }
 }
@@ -76,6 +84,10 @@ export default {
 
 <style scoped>
 #book_update {
+    margin-top: 10px;
+}
+
+#footer {
     margin-top: 10px;
 }
 </style>
