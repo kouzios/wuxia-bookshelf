@@ -9,24 +9,31 @@
             :sort-desc.sync="sort.descending"
         >
             <template slot='actions' slot-scope='row'>
+                <span class='selectable' @click='setEditValues(row.item)' v-b-modal.edit>Edit</span>
+                |
                 <font-awesome-icon icon='trash-alt' class='selectable' @click='setConfirmationValues(row.item.title)' v-b-modal.confirmation/>
             </template>
         </b-table>
         <confirmation :message='confirmation.message' v-on:confirm="removeNovel(confirmation.title)"/>
+        <edit :novel='edit' v-on:refresh='refresh' v-on:message='sendMessage'/>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
 import confirmation from '@/modals/Confirmation';
+import edit from '@/modals/Edit';
 
 export default {
     components: {
-        confirmation
+        confirmation,
+        edit
     },
     data: function() {
         return {
-            confirmation : {
+            books: [],
+            edit: {},
+            confirmation: {
                 message: '',
                 title: ''
             },
@@ -34,7 +41,6 @@ export default {
                 by: 'title',
                 descending: false
             },
-            books: [],
             fields: {
                 title: {
                     label: "Title",
@@ -51,6 +57,9 @@ export default {
         }
     },
     methods: {
+        setEditValues(novel) {
+            this.edit = novel;
+        },
         setConfirmationValues(title) {
             this.confirmation.title = title;
             this.confirmation.message = 'Are you sure you want to remove ' + title + '?';
@@ -83,19 +92,16 @@ export default {
             });
         },
         /**
-         * Updates the novel based on the index
-         * [depricated]
+         * Requests parent to send a message, used for component emissions
          */
-        updateNovel(index) {
-            var self = this;
-            var book = this.books[index];
-            var uri = process.env.VUE_APP_SERVER + '/bookshelf/updateNovel';
-
-            axios.post(uri, book).then(response => {
-                self.$emit('add-message', response.data);
-            }).catch(error => {
-                self.$emit('add-message', error.data);
-            });
+        sendMessage(message) {
+            self.$emit('add-message', message);
+        },
+        /**
+         * Requests parent to refresh bookshelf, used for child component requests
+         */
+        refresh() {
+            this.$emit('refresh');
         }
     }
 }

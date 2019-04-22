@@ -4,7 +4,7 @@
             <h3 id='title'>Bookshelf</h3>
             <b-button id='add' variant='secondary' v-b-modal.add-book>Add Book</b-button>
         </div>
-        <messages ref='messages'/>
+        <messages class='title' ref='messages'/>
         <books ref='books' v-on:add-message="addMessage" v-on:refresh="refresh"/>
         <add-book v-on:add-message="addMessage" v-on:refresh="refresh"/>
     </b-container>

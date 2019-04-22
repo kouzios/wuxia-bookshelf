@@ -1,7 +1,7 @@
 <template>
     <b-modal ref='add-book' id="add-book" title="Add Novel" ok-only ok-variant="secondary" ok-title="Cancel" @hidden='reset'>
         <b-form  @submit.prevent="addBook">
-            <div class='error'>{{message}}</div>
+            <messages class='error' ref='messages'/>
             <label for="text-title">Title</label>
             <b-input type="text" id="text-title" v-model='title' autocomplete='off'/>
             <label for="text-chapters">Chapters</label>
@@ -13,8 +13,12 @@
 
 <script>
 import axios from 'axios'
+import messages from '@/components/Messages'
 
 export default {
+    components: {
+        messages
+    },
     data() {
         return {
             message: '',
@@ -46,6 +50,12 @@ export default {
             this.message = '';
             this.title = '';
             this.current_position = 0;
+        },
+        /**
+         * Adds a message to the child message element
+         */
+        addMessage(message) {
+            this.$refs.messages.addMessage(message);
         }
     }
 }

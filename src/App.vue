@@ -37,4 +37,8 @@ body, html {
 .title {
   color: #0080FF;
 }
+
+.error {
+  color: red;
+}
 </style>
