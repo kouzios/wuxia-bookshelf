@@ -2,8 +2,8 @@
     <b-modal ref='confirmation' id="confirmation" title="Confirmation" hide-footer>
         <span>{{message}}</span>
         <div id='confirmation-buttons' class='d-flex flex-row justify-content-between'>
-            <b-button id="confirm" type="submit" variant="primary" @click='confirm'>OK</b-button>
-            <b-button id="cancel" type="submit" variant="primary" @click='cancel'>Cancel</b-button>
+            <b-button id="confirm" type="submit" variant="primary" @click='confirm'>Yes</b-button>
+            <b-button id="cancel" type="submit" variant="danger" @click='cancel'>No</b-button>
         </div>
     </b-modal>
 </template>
