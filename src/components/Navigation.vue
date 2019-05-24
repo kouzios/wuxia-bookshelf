@@ -9,12 +9,12 @@
                     <b-nav-item-dropdown right>
                         <!-- Using 'button-content' slot -->
                         <template slot="button-content"><em>User</em></template>
-                        <b-dropdown-item>
+                        <div class='dropdown_item'>
                             <router-link to='/profile'>Profile</router-link>
-                        </b-dropdown-item>
-                        <b-dropdown-item>
+                        </div>
+                        <div class='dropdown_item'>
                             <router-link to='/login'>Sign in</router-link>
-                        </b-dropdown-item>
+                        </div>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
             </b-collapse>
@@ -36,5 +36,14 @@ export default {
 
 #header_link {
     color: #66fcf1;
+}
+
+.dropdown_item {
+    text-align: center;
+}
+
+.dropdown_item a {
+    margin-left: 10px;
+    color: white;
 }
 </style>

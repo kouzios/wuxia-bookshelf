@@ -37,7 +37,14 @@ body {
   height: 100%;
 }
 
+/* Does not work in Navigation component for some reason */
+.navigation_container .dropdown-menu {
+  background-color: #6c757d !important;
+}
+
 .title {
+  font-size: 12px;
+  font-weight: bold;
   color: #c5c6c7;
 }
 

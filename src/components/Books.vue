@@ -127,9 +127,4 @@ export default {
 .position {
     width: auto;
 }
-
-.title {
-    font-size: 12px;
-    font-weight: bold;
-}
 </style>
