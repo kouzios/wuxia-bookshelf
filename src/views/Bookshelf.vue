@@ -78,19 +78,19 @@ export default {
 }
 
 #shelf {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(31, 40, 51, 0.8);
     border-bottom: #444444 1px solid;
     box-shadow: 1px inset;
 }
 
 .header {
-    color: #444;
+    color: #66fcf1;
     font-weight: bold;
     text-align: center;
 }
 
 #title-container  {
-    background-color: #0080FF;
+    background-color: #1f2833;
     padding: 5px;
 }
 

@@ -1,7 +1,7 @@
 <template>
     <div class='navigation_container'>
         <b-navbar toggleable="lg" type="dark">
-            <router-link to='/'>Bookshelf</router-link>
+            <router-link id='header_link' to='/'>Bookshelf</router-link>
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
             <b-collapse id="nav-collapse" is-nav>
                 <!-- Right aligned nav items -->
@@ -30,7 +30,11 @@ export default {
 
 <style scoped>
 .navigation_container {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(31, 40, 51, 0.8);
     margin-bottom: 25px;
+}
+
+#header_link {
+    color: #66fcf1;
 }
 </style>

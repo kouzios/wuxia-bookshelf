@@ -24,17 +24,21 @@ body, html {
   font-family: 'Verdana, Arial';
 }
 
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
 #app {
-  background: url('/static/background.jpg') no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background-color: #0b0c10;
   height: 100%;
 }
 
 .title {
-  color: #0080FF;
+  color: #c5c6c7;
 }
 
 .error {
