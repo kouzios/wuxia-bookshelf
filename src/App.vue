@@ -43,7 +43,6 @@ body {
 }
 
 .title {
-  font-size: 12px;
   font-weight: bold;
   color: #c5c6c7;
 }
