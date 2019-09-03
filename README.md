@@ -1,7 +1,9 @@
 # Wuxia Bookshelf
 
-> Originally I intended to have these update automatically; however, I couldn't find any open APIs to get the information from
-> and Cross-Origin requests to sites like wuxiaworld isn't checking out. So It's just a glorified notepad.
+The goal of this project is to allow for tracking online novels in a virtual bookshelf. The intention of creating this application was primarily to learn more about Vue; however, the functionality is also useful for displaying the novel progress in a proper manner.
+
+Originally I intended to have these update automatically; however, I couldn't find any open APIs to get the information
+and Cross-Origin requests to strip a webpage is very poor practice.
 
 ## Build Setup
 
